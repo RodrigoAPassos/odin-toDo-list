@@ -1,0 +1,24 @@
+{
+  "name": "odin-todo-list",
+  "version": "1.0.0",
+  "description": "Project: Todo List, all the information can be found here: https://www.theodinproject.com/lessons/node-path-javascript-todo-list",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodrigoAPassos/odin-toDo-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RodrigoAPassos/odin-toDo-list/issues"
+  },
+  "homepage": "https://github.com/RodrigoAPassos/odin-toDo-list#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}

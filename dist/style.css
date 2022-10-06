@@ -1,0 +1,137 @@
+@font-face {
+    font-family: "dancing" ;
+    src: url(../src/Resources/Dancing_Script/DancingScript-VariableFont_wght.ttf);
+}
+
+body {
+    margin: 0;
+    font-size: 16px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.control {
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #0ea5e9;
+    font-size: 2.5rem;
+    padding: 10px;
+    color: #eff6ff;
+    display: flex;
+    justify-content: center;
+    font-family: "dancing";
+    box-shadow: 0px 0px 5px 0px #3b82f6;
+}
+
+.manager {
+    flex: 1;
+    background-color: #dbeafe;
+    padding: 10px;
+}
+
+.proj-title {
+    font-family: "dancing";
+    font-size: 1.5rem;
+}
+
+.add-project {
+    padding-left: 12px;
+    margin: 5px;
+    font-size: 1.2rem;
+    font-family: "dancing";
+}
+
+.add-project:hover {
+    transform: scale(1.2);
+    transform-origin: left;
+    cursor: pointer;
+}
+
+.add-proj-task {
+    padding-left: 20px;
+    margin: 5px;
+    font-size: 1rem;
+    font-family: "dancing";
+}
+
+.add-proj-task:hover {
+    transform: scale(1.2);
+    transform-origin: left;
+    cursor: pointer;
+}
+
+.footer {
+    background-color: #bfdbfe;
+    padding: 10px;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #e0f2fe;
+}
+
+.day, .week, .month {
+    flex: auto;
+    font-family: "dancing";
+    font-size: 2.5rem;
+    text-align: center;
+    padding: 10px;
+    background-color: #bfdbfe;
+    box-shadow: 0px 0px 5px 0px #3b82f6;
+}
+
+.day:hover, .week:hover, .month:hover {
+    box-shadow: 0px 0px 10px 0px #3b82f6;
+    cursor: pointer;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.main-title {
+    font-family: "dancing";
+    font-size: 2rem;
+    margin: 15px;
+}
+
+.display {
+    flex: auto;
+    margin: 15px;
+}
+
+.my-tasks {
+    margin: 5px;
+    font-size: 1.5rem;
+    font-family: "dancing";
+}
+
+.my-tasks:hover {
+    transform: scale(1.2);
+    transform-origin: left;
+    cursor: pointer;
+}
+
+.new-task {
+    margin: 5px;
+    font-size: 1.2rem;
+    font-family: "dancing";
+}
+
+.new-task:hover {
+    transform: scale(1.2);
+    transform-origin: left;
+    cursor: pointer;
+}
