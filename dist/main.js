@@ -1,0 +1,1 @@
+document.querySelector(".new-task").addEventListener("click",(()=>{}));
