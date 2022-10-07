@@ -119,9 +119,13 @@ body {
 }
 
 .my-tasks:hover {
-    transform: scale(1.2);
-    transform-origin: left;
+    /*transform: scale(1.1);
+    transform-origin: left;*/
     cursor: pointer;
+}
+
+.task {
+    background-color: aquamarine;
 }
 
 .new-task {
