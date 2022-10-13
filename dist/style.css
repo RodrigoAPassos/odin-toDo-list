@@ -145,10 +145,9 @@ body {
 }
 
 #task-title::placeholder {
-    color: #0369a1;
+    color: black;
     font-family: "dancing";
-    font-size: 1.25rem;
-    align-self: flex-end;
+    font-size: 1.2rem;
 }
 
 #task-description {
@@ -159,12 +158,60 @@ body {
 
 .task-desc input, .task-title input {
     height: 2rem;
+    font-size: 1rem;
+}
+
+.task-desc input:focus, .task-title input:focus {
+    outline: none;
 }
 
 #task-description::placeholder {
-    color: #0369a1;
+    color: black;
     font-family: "dancing";
     font-size: 1.2rem;
+}
+
+input[type="date"] {
+    padding: 5px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background-color: #dbeafe;
+}
+
+input[type="date"]:focus {
+    outline: none;
+}
+
+select {
+    padding: 5px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background-color: #dbeafe;
+}
+
+select:focus {
+    outline: none;
+}
+
+.cancel-save {
+    display: flex;
+    align-items: center;
+}
+
+button#save {
+    padding: 10px;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background-color: #bfdbfe;
+}
+
+.cancel-task {
+    background-image: url(../src/Resources/cancel_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
 }
 
 .new-task {

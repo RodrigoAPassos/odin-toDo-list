@@ -40,19 +40,15 @@
                     <div class="task-form">
                         <form action="">
                             <div class="task-title">
-                                <!--<label for="task-title">Title</label>-->
                                 <input id="task-title" type="text" placeholder="Task Title">
                             </div>
                             <div class="task-desc">
-                                <!--<label for="task-description">Description</label>-->
                                 <input type="text" id="task-description" placeholder="Task Description">
                             </div>
                             <div class="dueDate">
-                                <!--<label for="dueDate">Date</label>-->
                                 <input type="date" name="dueDate" id="dueDate">
                             </div>
                             <div class="priority">
-                                <!--<label for="priority">Priority</label>-->
                                 <select name="priority" id="priority">
                                     <option value="" selected disabled hidden>Priority</option>
                                     <option value="high">High</option>
@@ -60,7 +56,10 @@
                                     <option value="low">Low</option>
                                 </select>
                             </div>
-                            <button id="save">Save</button>
+                            <div class="cancel-save">
+                                <button id="save">Save</button>
+                                <div class="cancel-task"></div>
+                            </div>
                         </form>
                     </div>
                 </div>
