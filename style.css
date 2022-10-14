@@ -80,7 +80,7 @@ body {
     background-color: #e0f2fe;
 }
 
-.day, .week, .month {
+.day, .week, .projects-filter {
     flex: auto;
     font-family: "dancing";
     font-size: 2.5rem;
@@ -118,12 +118,6 @@ body {
     font-family: "dancing";
 }
 
-.my-tasks:hover {
-    /*transform: scale(1.1);
-    transform-origin: left;*/
-    cursor: pointer;
-}
-
 .task-form form {
     background-color: #dbeafe;
     padding: 10px;
@@ -138,10 +132,6 @@ body {
     border: 0;
     border-bottom: 1px solid #bfdbfe;
     background-color: #dbeafe;
-    /*background-color:#bfdbfe;
-    border-radius: 12px;
-    padding: 10px;
-    padding-left: 5px;*/
 }
 
 #task-title::placeholder {
@@ -214,10 +204,20 @@ button#save {
     width: 24px;
 }
 
+button#save:hover, .cancel-task:hover {
+    cursor: pointer;
+}
+
+.task-form form:has(.cancel-task:hover) {
+    transition: 1s;
+    background-color: #fee2e2;
+}
+
 .new-task {
     margin: 5px;
     font-size: 1.2rem;
     font-family: "dancing";
+    width: fit-content;
 }
 
 .new-task:hover {
