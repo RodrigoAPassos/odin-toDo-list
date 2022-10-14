@@ -1,22 +1,29 @@
-let toDo = [];
-
-//task factory
-const Task = (project, title, description, dueDate, priority, done) => {
-    return {project, title, description, dueDate, priority, done};
-}
+import {displayTaskForm, saveTask} from "./Modules/tasks";
 
 const newTask = (()=> {
     document.querySelector(".new-task").addEventListener("click", ()=> {
-
         //task form
-
+        displayTaskForm();
+        saveTask();
     })
 })();
 
 /*
-toDo.push(Task("Projeto Teste", "Task Teste", "teste", "", 3, false));
-const teste2 = Task("Projeto Teste", "Task Teste", "teste", "", 3, false);
-const teste3 = Task("Teste", "Task Teste", "teste", "", 3, false);
-toDo.push(teste3);
-
-console.log(teste2, toDo, teste3);*/
+const saveTask = (()=> {
+    document.getElementById("save").addEventListener("click", ()=> {
+        let taskTitle = document.getElementById("task-title").value;
+        let taskDesc = document.getElementById("task-description").value;
+        let taskDate = document.getElementById("dueDate").value;
+        let taskPriority = document.getElementById("priority").value;
+        let taskDone = false;
+        if (taskTitle != "" && taskDate != "" && taskPriority != "") {
+            toDo.push(Task("default", taskTitle, taskDesc, taskDate, taskPriority, taskDone));
+            document.querySelector(".task-form").style.display = "none";
+            document.getElementById("task-title").value = "";
+            document.getElementById("task-description").value = "";
+            document.getElementById("dueDate").value = "";
+            document.getElementById("priority").value = "";
+        }else return;
+    })
+})();
+*/

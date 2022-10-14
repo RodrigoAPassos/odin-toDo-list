@@ -32,24 +32,29 @@
             <div class="filter">
                 <div class="day">Day</div>
                 <div class="week">Week</div>
-                <div class="month">Month</div>
+                <div class="projects-filter">Projects</div>
             </div>
             <div class="main-title">Tasks</div>
             <div class="display">
                 <div class="my-tasks">
+                    <div class="task">
+                        <div class="task-priority"></div>
+                        <div class="task-title"></div>
+                        <div class="task-description"></div>
+                    </div>
                     <div class="task-form">
-                        <form action="">
+                        <!--<form id="theForm" action="">
                             <div class="task-title">
-                                <input id="task-title" type="text" placeholder="Task Title">
+                                <input id="task-title" type="text" placeholder="Task Title" maxlength="30" required>
                             </div>
                             <div class="task-desc">
                                 <input type="text" id="task-description" placeholder="Task Description">
                             </div>
                             <div class="dueDate">
-                                <input type="date" name="dueDate" id="dueDate">
+                                <input type="date" name="dueDate" id="dueDate" required>
                             </div>
                             <div class="priority">
-                                <select name="priority" id="priority">
+                                <select name="priority" id="priority" required>
                                     <option value="" selected disabled hidden>Priority</option>
                                     <option value="high">High</option>
                                     <option value="medium">Medium</option>
@@ -57,10 +62,10 @@
                                 </select>
                             </div>
                             <div class="cancel-save">
-                                <button id="save">Save</button>
+                                <button type="submit" id="save">Save</button>
                                 <div class="cancel-task"></div>
                             </div>
-                        </form>
+                        </form>-->
                     </div>
                 </div>
                 <div class="new-task">+task</div>
