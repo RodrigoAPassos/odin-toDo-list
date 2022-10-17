@@ -1,23 +1,32 @@
 const toDo = [];
 
 //task factory
-const Task = (project, title, description, dueDate, priority, done) => {
-    return {project, title, description, dueDate, priority, done};
+const Task = (project, title, description, dueDate, priority) => {
+    return {project, title, description, dueDate, priority};
 }
 
 const saveTask = () => {
-    document.getElementById("save").addEventListener("submit", ()=> {
-
+    document.getElementById("save").addEventListener("click", () => {
+        //e.preventDefault(); not working for unknow reason
         let taskTitle = document.getElementById("task-title").value;
         let taskDesc = document.getElementById("task-description").value;
         let taskDate = document.getElementById("dueDate").value;
         let taskPriority = document.getElementById("priority").value;
-        let taskDone = false;
-        toDo.push(Task("default", taskTitle, taskDesc, taskDate, taskPriority, taskDone));
+        toDo.push(Task("default", taskTitle, taskDesc, taskDate, taskPriority));
         const theForm = document.getElementById("theForm");
         document.querySelector(".task-form").removeChild(theForm);
+        document.querySelector(".new-task").addEventListener("click", taskHandler);
+        displayTask();
+        console.log(toDo);
     })
 };
+
+const taskHandler = () => {
+    document.querySelector(".new-task").removeEventListener("click", taskHandler);
+    displayTaskForm();
+    cancelTask();
+    saveTask();
+}
 
 const displayTaskForm = () => {
     const formContainer = document.querySelector(".task-form");
@@ -45,6 +54,7 @@ const displayTaskForm = () => {
     inputDesc.setAttribute("type", "text");
     inputDesc.setAttribute("id", "task-description");
     inputDesc.setAttribute("placeholder", "Task Description");
+    inputDesc.setAttribute("maxlength", "120");
     //task due date
     const taskDate = document.createElement("div");
     taskDate.classList.add("dueDate");
@@ -93,6 +103,7 @@ const displayTaskForm = () => {
     //cancel
     const taskCancel = document.createElement("div");
     taskCancel.classList.add("cancel-task");
+    taskCancel.setAttribute("id", "cancel-task");
     //append
     cancelSave.appendChild(saveBtn);
     cancelSave.appendChild(taskCancel);
@@ -112,9 +123,87 @@ const displayTaskForm = () => {
     formContainer.appendChild(theForm);
 };
 
+const cancelTask = () => {
+    document.getElementById("cancel-task").addEventListener("click", ()=> {
+        const theForm = document.getElementById("theForm");
+        document.querySelector(".task-form").removeChild(theForm);
+        document.querySelector(".new-task").addEventListener("click", taskHandler);
+    })
+}
 
+const delTaskBtn = () => {
+    document.querySelectorAll(".del-task").forEach((task) => {
+        task.addEventListener("click", ()=> delTask(task.getAttribute("value")))
+    })
+}
+
+const delTask = (value) => {
+    document.querySelectorAll(".task").forEach((task) => {
+        if (task.getAttribute("value") == value) {
+            toDo.splice(Number(task.getAttribute("value")), 1);
+            displayTask();
+        }
+    })
+}
+
+const displayTask = () => {
+    //clear
+    const myTasks = document.querySelector(".my-tasks");
+    const clearTasks = document.querySelectorAll(".task");
+    clearTasks.forEach((task) => {
+        myTasks.removeChild(task);
+    })
+    toDo.forEach((task) => {
+        console.log(task);
+        const myTasks = document.querySelector(".my-tasks");
+        //Task
+        const theTask = document.createElement("div");
+        theTask.classList.add("task");
+        if (task.priority == "low") {
+            theTask.style.borderLeft = "12px solid green";
+        }else if (task.priority == "medium") {
+            theTask.style.borderLeft = "12px solid yellow";
+        }else theTask.style.borderLeft = "12px solid red";
+        theTask.setAttribute("value", toDo.indexOf(task));
+        //conclude option
+        const optConclude = document.createElement("div");
+        optConclude.classList.add("conclude");
+        //conclude input
+        const inputConclude = document.createElement("input");
+        inputConclude.setAttribute("type", "checkbox");
+        inputConclude.setAttribute("name", "conclude");
+        inputConclude.setAttribute("id", "conclude");
+        //task title
+        const taskTitle = document.createElement("div");
+        taskTitle.classList.add("tasks-title");
+        taskTitle.innerHTML = task.title;
+        //task description
+        const taskDesc = document.createElement("div");
+        taskDesc.classList.add("task-description");
+        taskDesc.innerHTML = task.description;
+        //task date
+        const taskDate = document.createElement("div");
+        taskDate.classList.add("task-date");
+        taskDate.innerHTML = task.dueDate;
+        //del task
+        const deleteTask = document.createElement("button");
+        deleteTask.classList.add("del-task");
+        deleteTask.setAttribute("value", toDo.indexOf(task));
+        //append
+        optConclude.appendChild(inputConclude);
+        theTask.appendChild(optConclude);
+        theTask.appendChild(taskTitle);
+        theTask.appendChild(taskDesc);
+        theTask.appendChild(taskDate);
+        theTask.appendChild(deleteTask);
+        //myTasks.appendChild(theTask);
+        //append before
+        const beforeThis = document.querySelector(".my-tasks").firstChild;
+        myTasks.insertBefore(theTask, beforeThis);
+    })
+    delTaskBtn();
+}
 
 export {
-    saveTask,
-    displayTaskForm
+    taskHandler
 };

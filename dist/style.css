@@ -118,17 +118,35 @@ body {
     font-family: "dancing";
 }
 
+.task {
+    background-color: #dbeafe;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 6fr 14fr 4fr 1fr;
+    gap: 5px;
+    box-shadow: 0px 0px 5px 0px #000000;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.task-date {
+    border: 0;
+    border-bottom: 1px solid #bfdbfe;
+    background-color: #dbeafe;
+    font-size: 1.5rem;
+}
+
 .task-form form {
     background-color: #dbeafe;
     padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr 1fr 1fr;
+    gap: 5px;
     box-shadow: 0px 0px 5px 0px #000000;
     border-radius: 12px;
 }
 
-#task-title {
+#task-title, .tasks-title {
     border: 0;
     border-bottom: 1px solid #bfdbfe;
     background-color: #dbeafe;
@@ -140,10 +158,11 @@ body {
     font-size: 1.2rem;
 }
 
-#task-description {
+#task-description, .task-description {
     border: 0;
     border-bottom: 1px solid #bfdbfe;
     background-color: #dbeafe;
+    width: 100%;
 }
 
 .task-desc input, .task-title input {
@@ -186,6 +205,7 @@ select:focus {
 .cancel-save {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 button#save {
@@ -195,13 +215,15 @@ button#save {
     background-color: #bfdbfe;
 }
 
-.cancel-task {
+.cancel-task, .del-task {
     background-image: url(../src/Resources/cancel_black_24dp.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     height: 24px;
     width: 24px;
+    justify-self: end;
+    align-self: center;
 }
 
 button#save:hover, .cancel-task:hover {
