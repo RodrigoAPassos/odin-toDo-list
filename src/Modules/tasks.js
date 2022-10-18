@@ -1,28 +1,39 @@
-const toDo = [];
+const toDo = [{project:"default", title:"Any Task", description:"Task synopsis", dueDate:"2022-10-18", priority:"low", done:true}];
 
 //task factory
-const Task = (project, title, description, dueDate, priority) => {
-    return {project, title, description, dueDate, priority};
+const Task = (project, title, description, dueDate, priority, done) => {
+    return {project, title, description, dueDate, priority, done};
 }
 
 const saveTask = () => {
-    document.getElementById("save").addEventListener("click", () => {
-        //e.preventDefault(); not working for unknow reason
+    document.getElementById("theForm").addEventListener("submit", (e) => {
+        e.preventDefault(); //not working for unknow reason
+        let taskProject = document.querySelector(".main-title").innerHTML;
+        taskProject == "Tasks" ? taskProject = "default" : taskProject = taskProject;
+        /*if(taskProject === "Tasks"){
+            taskProject = "default";
+        };*/
         let taskTitle = document.getElementById("task-title").value;
         let taskDesc = document.getElementById("task-description").value;
         let taskDate = document.getElementById("dueDate").value;
         let taskPriority = document.getElementById("priority").value;
-        toDo.push(Task("default", taskTitle, taskDesc, taskDate, taskPriority));
+        let taskDone = false;
+        toDo.push(Task(taskProject, taskTitle, taskDesc, taskDate, taskPriority, taskDone));
         const theForm = document.getElementById("theForm");
         document.querySelector(".task-form").removeChild(theForm);
         document.querySelector(".new-task").addEventListener("click", taskHandler);
+        document.querySelectorAll(".add-proj-task").forEach((taskProj) => {
+            taskProj.addEventListener("click", taskHandler);
+        })
         displayTask();
-        console.log(toDo);
     })
 };
 
 const taskHandler = () => {
     document.querySelector(".new-task").removeEventListener("click", taskHandler);
+    document.querySelectorAll(".add-proj-task").forEach((taskProj) => {
+        taskProj.removeEventListener("click", taskHandler);
+    })
     displayTaskForm();
     cancelTask();
     saveTask();
@@ -154,11 +165,16 @@ const displayTask = () => {
         myTasks.removeChild(task);
     })
     toDo.forEach((task) => {
-        console.log(task);
+        console.log(task);//control
         const myTasks = document.querySelector(".my-tasks");
         //Task
         const theTask = document.createElement("div");
-        theTask.classList.add("task");
+        //task done?
+        if (task.done == true) {
+            theTask.classList.add("task");
+            theTask.classList.add("taskDone");
+        }else {theTask.classList.add("task");}
+        //task priority
         if (task.priority == "low") {
             theTask.style.borderLeft = "12px solid green";
         }else if (task.priority == "medium") {
@@ -173,6 +189,9 @@ const displayTask = () => {
         inputConclude.setAttribute("type", "checkbox");
         inputConclude.setAttribute("name", "conclude");
         inputConclude.setAttribute("id", "conclude");
+        if (task.done == true) {
+            inputConclude.setAttribute("checked", true);
+        };
         //task title
         const taskTitle = document.createElement("div");
         taskTitle.classList.add("tasks-title");
@@ -184,7 +203,9 @@ const displayTask = () => {
         //task date
         const taskDate = document.createElement("div");
         taskDate.classList.add("task-date");
-        taskDate.innerHTML = task.dueDate;
+        const date = task.dueDate;
+        const dateArray = date.split("-");
+        taskDate.innerHTML = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
         //del task
         const deleteTask = document.createElement("button");
         deleteTask.classList.add("del-task");
@@ -202,8 +223,24 @@ const displayTask = () => {
         myTasks.insertBefore(theTask, beforeThis);
     })
     delTaskBtn();
+    taskDone();
+}
+
+const taskDone = () => {
+    document.querySelectorAll(".task").forEach((task) => {
+        task.querySelector("input[name=conclude]").addEventListener("change", function() {
+            if (this.checked) {
+                task.classList.add("taskDone");
+                toDo[task.getAttribute("value")].done = true;
+            }else {
+                task.classList.remove("taskDone");
+                toDo[task.getAttribute("value")].done = false;
+            };
+        })
+    })
 }
 
 export {
-    taskHandler
+    taskHandler,
+    displayTask
 };

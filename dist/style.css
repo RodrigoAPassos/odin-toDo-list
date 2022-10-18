@@ -40,6 +40,8 @@ body {
 .proj-title {
     font-family: "dancing";
     font-size: 1.5rem;
+    cursor: pointer;
+    width: fit-content;
 }
 
 .add-project {
@@ -47,6 +49,7 @@ body {
     margin: 5px;
     font-size: 1.2rem;
     font-family: "dancing";
+    width: fit-content;
 }
 
 .add-project:hover {
@@ -60,6 +63,7 @@ body {
     margin: 5px;
     font-size: 1rem;
     font-family: "dancing";
+    width: fit-content;
 }
 
 .add-proj-task:hover {
@@ -90,7 +94,7 @@ body {
     box-shadow: 0px 0px 5px 0px #3b82f6;
 }
 
-.day:hover, .week:hover, .month:hover {
+.day:hover, .week:hover, .projects-filter:hover {
     box-shadow: 0px 0px 10px 0px #3b82f6;
     cursor: pointer;
 }
@@ -127,6 +131,10 @@ body {
     box-shadow: 0px 0px 5px 0px #000000;
     border-radius: 12px;
     margin-bottom: 10px;
+}
+
+.taskDone {
+    opacity: 0.5;
 }
 
 .task-date {
@@ -226,11 +234,16 @@ button#save {
     align-self: center;
 }
 
-button#save:hover, .cancel-task:hover {
+button.del-task {
+    border-radius: 50%;
+    border: 0;
+}
+
+button#save:hover, .cancel-task:hover, .del-task:hover {
     cursor: pointer;
 }
 
-.task-form form:has(.cancel-task:hover) {
+.task-form form:has(.cancel-task:hover), .task:has(.del-task:hover) {
     transition: 1s;
     background-color: #fee2e2;
 }
