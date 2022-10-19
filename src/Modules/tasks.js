@@ -7,12 +7,9 @@ const Task = (project, title, description, dueDate, priority, done) => {
 
 const saveTask = () => {
     document.getElementById("theForm").addEventListener("submit", (e) => {
-        e.preventDefault(); //not working for unknow reason
+        e.preventDefault();
         let taskProject = document.querySelector(".main-title").innerHTML;
         taskProject == "Tasks" ? taskProject = "default" : taskProject = taskProject;
-        /*if(taskProject === "Tasks"){
-            taskProject = "default";
-        };*/
         let taskTitle = document.getElementById("task-title").value;
         let taskDesc = document.getElementById("task-description").value;
         let taskDate = document.getElementById("dueDate").value;
@@ -37,6 +34,76 @@ const taskHandler = () => {
     displayTaskForm();
     cancelTask();
     saveTask();
+}
+
+const projectHandler = () => {
+    document.querySelector(".add-project").removeEventListener("click", projectHandler);
+    displayProjectForm();
+    cancelProject();
+    saveProject();
+}
+
+const displayProjectForm = () => {
+    const projects = document.querySelector(".project-form");
+    //project form
+    const projectForm = document.createElement("form");
+    projectForm.setAttribute("action", "");
+    projectForm.setAttribute("id", "projectForm");
+    //input project title
+    const inputProject = document.createElement("input");
+    inputProject.setAttribute("type", "text");
+    inputProject.setAttribute("id", "project-title");
+    inputProject.setAttribute("placeholder", "Project Title");
+    inputProject.setAttribute("maxlength", "15");
+    inputProject.setAttribute("required", "true");
+    //save button
+    const saveProject = document.createElement("button");
+    saveProject.setAttribute("type", "submit");
+    saveProject.setAttribute("id", "save-project");
+    saveProject.innerHTML = "Save";
+    //cancel project
+    const projectCancel = document.createElement("div");
+    projectCancel.classList.add("proj-cancel");
+    projectCancel.setAttribute("id", "proj-cancel");
+    //append
+    projectForm.appendChild(inputProject);
+    projectForm.appendChild(saveProject);
+    projectForm.appendChild(projectCancel);
+    projects.appendChild(projectForm);
+}
+
+const saveProject = () => {
+    document.getElementById("projectForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const projectName = document.getElementById("project-title").value;
+        //projects
+        const projects = document.querySelector(".projects");
+        //new project manager
+        const newProject = document.createElement("div");
+        newProject.classList.add("newProject");
+        //proj title
+        const projTitle = document.createElement("div");
+        projTitle.classList.add("proj-title");
+        projTitle.innerHTML = projectName;
+        //projTitle.addEventListener("click", displayProject);
+        //add proj task
+        const projTask = document.createElement("div");
+        projTask.classList.add("add-proj-task");
+        projTask.setAttribute("name", projectName);
+        projTask.innerHTML = "+task";
+        //append
+        newProject.appendChild(projTitle);
+        newProject.appendChild(projTask);
+        //append before
+        const beforeThis = document.querySelector(".projects").firstChild;
+        projects.insertBefore(newProject, beforeThis);
+        //remove project form
+        const projectForm = document.getElementById("projectForm");
+        document.querySelector(".project-form").removeChild(projectForm);
+        //add event listener back to +Project
+        document.querySelector(".add-project").addEventListener("click", projectHandler);
+        //display project created
+    })
 }
 
 const displayTaskForm = () => {
@@ -134,11 +201,22 @@ const displayTaskForm = () => {
     formContainer.appendChild(theForm);
 };
 
+const cancelProject = () => {
+    document.getElementById("proj-cancel").addEventListener("click", ()=> {
+        const projectForm = document.getElementById("projectForm");
+        document.querySelector(".newProject").removeChild(projectForm);
+        document.querySelector(".add-project").addEventListener("click", projectHandler);
+    })
+}
+
 const cancelTask = () => {
     document.getElementById("cancel-task").addEventListener("click", ()=> {
         const theForm = document.getElementById("theForm");
         document.querySelector(".task-form").removeChild(theForm);
         document.querySelector(".new-task").addEventListener("click", taskHandler);
+        document.querySelectorAll(".add-proj-task").forEach((taskProj) => {
+            taskProj.addEventListener("click", taskHandler);
+        })
     })
 }
 
@@ -242,5 +320,6 @@ const taskDone = () => {
 
 export {
     taskHandler,
-    displayTask
+    displayTask,
+    projectHandler
 };

@@ -1,4 +1,4 @@
-import {taskHandler, displayTask} from "./Modules/tasks";
+import {taskHandler, displayTask, projectHandler} from "./Modules/tasks";
 
 const newTask = (()=> {
     document.querySelector(".new-task").addEventListener("click", taskHandler);
@@ -9,4 +9,9 @@ const newProjTask = (()=> {
         taskProj.addEventListener("click", taskHandler);
     })
 })();
+
+const newProject = (() => {
+    document.querySelector(".add-project").addEventListener("click", projectHandler);
+})();
+
 displayTask();
