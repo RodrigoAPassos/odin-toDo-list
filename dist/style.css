@@ -28,13 +28,11 @@ body {
     display: flex;
     justify-content: center;
     font-family: "dancing";
-    box-shadow: 0px 0px 5px 0px #3b82f6;
 }
 
 .manager {
     flex: 1;
     background-color: #dbeafe;
-    padding: 10px;
 }
 
 .proj-title {
@@ -58,7 +56,7 @@ body {
     cursor: pointer;
 }
 
-.add-proj-task, .add-proj-task-default {
+.add-proj-task {
     padding-left: 20px;
     margin: 5px;
     font-size: 1rem;
@@ -70,6 +68,11 @@ body {
     transform: scale(1.2);
     transform-origin: left;
     cursor: pointer;
+}
+
+.projects {
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #3b82f6;
 }
 
 .footer {
@@ -144,7 +147,7 @@ body {
     font-size: 1.5rem;
 }
 
-.task-form form {
+.task-form form, #projectForm {
     background-color: #dbeafe;
     padding: 10px;
     display: grid;
@@ -154,13 +157,13 @@ body {
     border-radius: 12px;
 }
 
-#task-title, .tasks-title {
+#task-title, .tasks-title, #project-title {
     border: 0;
     border-bottom: 1px solid #bfdbfe;
     background-color: #dbeafe;
 }
 
-#task-title::placeholder {
+#task-title::placeholder, #project-title::placeholder {
     color: black;
     font-family: "dancing";
     font-size: 1.2rem;
@@ -173,12 +176,12 @@ body {
     width: 100%;
 }
 
-.task-desc input, .task-title input {
+.task-desc input, .task-title input, input#project-title {
     height: 2rem;
     font-size: 1rem;
 }
 
-.task-desc input:focus, .task-title input:focus {
+.task-desc input:focus, .task-title input:focus, input#project-title:focus {
     outline: none;
 }
 
@@ -210,20 +213,20 @@ select:focus {
     outline: none;
 }
 
-.cancel-save {
+.cancel-save, #projectForm, .proj {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-button#save {
+button#save, button#save-project {
     padding: 10px;
     border: 1px solid #bfdbfe;
     border-radius: 12px;
     background-color: #bfdbfe;
 }
 
-.cancel-task, .del-task {
+.cancel-task, .proj-cancel {
     background-image: url(../src/Resources/cancel_black_24dp.svg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -234,18 +237,45 @@ button#save {
     align-self: center;
 }
 
+.del-task {
+    background-image: url(../src/Resources/delete_forever_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    justify-self: end;
+    align-self: center;
+}
+
+.proj-del {
+    background-image: url(../src/Resources/delete_sweep_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    justify-self: end;
+    align-self: center;
+}
+
+.proj-del:hover {
+    cursor: pointer;
+}
+
 button.del-task {
     border-radius: 50%;
     border: 0;
 }
 
-button#save:hover, .cancel-task:hover, .del-task:hover {
+button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #save-project:hover {
     cursor: pointer;
 }
 
-.task-form form:has(.cancel-task:hover), .task:has(.del-task:hover) {
+.task-form form:has(.cancel-task:hover), .task:has(.del-task:hover), #projectForm:has(.proj-cancel:hover), .proj:has(.proj-del:hover) {
     transition: 1s;
     background-color: #fee2e2;
+    box-shadow: 0px 0px 5px 0px #ff0000;
 }
 
 .new-task {
