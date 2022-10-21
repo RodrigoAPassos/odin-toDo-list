@@ -33,6 +33,7 @@ body {
 .manager {
     flex: 1;
     background-color: #dbeafe;
+    overflow-y: auto;
 }
 
 .proj-title {
@@ -64,7 +65,7 @@ body {
     width: fit-content;
 }
 
-.add-proj-task:hover, .add-proj-task-default:hover {
+.add-proj-task:hover {
     transform: scale(1.2);
     transform-origin: left;
     cursor: pointer;
@@ -87,7 +88,7 @@ body {
     background-color: #e0f2fe;
 }
 
-.day, .week, .projects-filter {
+.day, .week, .month {
     flex: auto;
     font-family: "dancing";
     font-size: 2.5rem;
@@ -97,7 +98,7 @@ body {
     box-shadow: 0px 0px 5px 0px #3b82f6;
 }
 
-.day:hover, .week:hover, .projects-filter:hover {
+.day:hover, .week:hover, .month:hover {
     box-shadow: 0px 0px 10px 0px #3b82f6;
     cursor: pointer;
 }
@@ -108,15 +109,40 @@ body {
     align-items: baseline;
 }
 
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .main-title {
     font-family: "dancing";
     font-size: 2rem;
     margin: 15px;
 }
 
+.sort {
+    background-image: url(../src/Resources/sort_black_24dp.svg);
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+}
+
+select#sort {
+    display: none;
+}
+
+.sort:hover select#sort {
+    display: block;
+    position: relative;
+    top: 24px;
+    right: 50px;
+}
+
 .display {
     flex: auto;
     margin: 15px;
+    overflow-y: auto;
 }
 
 .my-tasks {
@@ -283,6 +309,10 @@ button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #sav
     font-size: 1.2rem;
     font-family: "dancing";
     width: fit-content;
+}
+
+.hidden {
+    display: none;
 }
 
 .new-task:hover {
