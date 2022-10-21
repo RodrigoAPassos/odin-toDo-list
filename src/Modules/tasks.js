@@ -293,11 +293,13 @@ const delProject = (projectName) => {
         }
     })
     //delete all tasks of that project
-    toDo.forEach((task) => {
-        if (task.project == projectName) {
-            toDo.splice(toDo.indexOf(task), 1);
-        };
-    })
+    for (let i=0;i<=toDo.length;i++){
+        toDo.forEach((task) => {
+            if (task.project == projectName) {
+                toDo.splice(toDo.indexOf(task), 1);
+            };
+        })
+    }
 }
 
 //delete the selected task of the array toDo
@@ -321,69 +323,124 @@ const clearTask = () => {
 }
 
 //display all tasks of selected project
-const displayTask = (projectName = "default") => {
+const displayTask = (projectName = "default", mode) => {
     clearTask();
-    projectName == "Tasks" ? projectName = "default" : projectName = projectName;
-    toDo.forEach((task) => {
-        if (task.project == projectName) {
-            const myTasks = document.querySelector(".my-tasks");
-            //Task
-            const theTask = document.createElement("div");
-            //task done?
-            if (task.done == true) {
-                theTask.classList.add("task");
-                theTask.classList.add("taskDone");
-            }else {theTask.classList.add("task");}
-            //task priority
-            if (task.priority == "low") {
-                theTask.style.borderLeft = "12px solid green";
-            }else if (task.priority == "medium") {
-                theTask.style.borderLeft = "12px solid yellow";
-            }else theTask.style.borderLeft = "12px solid red";
-            theTask.setAttribute("value", toDo.indexOf(task));
-            //conclude option
-            const optConclude = document.createElement("div");
-            optConclude.classList.add("conclude");
-            //conclude input
-            const inputConclude = document.createElement("input");
-            inputConclude.setAttribute("type", "checkbox");
-            inputConclude.setAttribute("name", "conclude");
-            inputConclude.setAttribute("id", "conclude");
-            if (task.done == true) {
-                inputConclude.setAttribute("checked", true);
-            };
-            //task title
-            const taskTitle = document.createElement("div");
-            taskTitle.classList.add("tasks-title");
-            taskTitle.innerHTML = task.title;
-            //task description
-            const taskDesc = document.createElement("div");
-            taskDesc.classList.add("task-description");
-            taskDesc.innerHTML = task.description;
-            //task date
-            const taskDate = document.createElement("div");
-            taskDate.classList.add("task-date");
-            const date = task.dueDate;
-            const dateArray = date.split("-");
-            taskDate.innerHTML = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
-            //del task
-            const deleteTask = document.createElement("button");
-            deleteTask.classList.add("del-task");
-            deleteTask.setAttribute("value", toDo.indexOf(task));
-            //append
-            optConclude.appendChild(inputConclude);
-            theTask.appendChild(optConclude);
-            theTask.appendChild(taskTitle);
-            theTask.appendChild(taskDesc);
-            theTask.appendChild(taskDate);
-            theTask.appendChild(deleteTask);
-            //append before
-            const beforeThis = document.querySelector(".my-tasks").firstChild;
-            myTasks.insertBefore(theTask, beforeThis);
-        }
-    })
+    switch (mode){
+        case "Day":
+            document.querySelector(".new-task").style.display = "none";
+            displayHandler("Today");
+            toDo.forEach((task) => {
+                const today = new Date();
+                const date = task.dueDate;
+                const dateArray = new Date(date.split("-"));
+                if (dateArray.getDate() == today.getDate()) {
+                    showTasks(task);
+                }
+            })
+        break;
+        case "Week":
+            document.querySelector(".new-task").style.display = "none";
+            displayHandler("Week");
+            const today = new Date();
+            const sunday = new Date(today.setDate(today.getDate() - today.getDay()));
+            const week = [sunday.getDate()];
+            for (let i= 1;i<7;i++) {
+                week.push(sunday.getDate()+i);
+            }
+            toDo.forEach((task)=> {
+                const date = task.dueDate;
+                const dateArray = new Date(date.split("-"));
+                week.forEach((day)=> {
+                    if (day == dateArray.getDate()) {
+                        showTasks(task);
+                    }
+                })
+            })
+        break;
+        case "Month":
+            document.querySelector(".new-task").style.display = "none";
+            displayHandler("Month");
+            toDo.forEach((task) => {
+                const today = new Date();
+                const date = task.dueDate;
+                const dateArray = new Date(date.split("-"));
+                if (dateArray.getMonth() == today.getMonth()) {
+                    showTasks(task);
+                }
+            })
+        break;
+        default:
+            console.log(toDo);
+            projectName == "Tasks" ? projectName = "default" : projectName = projectName;
+            toDo.forEach((task) => {
+                if (task.project == projectName) {
+                    showTasks(task);
+                }
+            })
+        break;
+    }
+    projDisplay();
     delTaskBtn();
     taskDone();
+}
+
+//show the chosen tasks 
+const showTasks = (task) => {
+    const myTasks = document.querySelector(".my-tasks");
+    //Task
+    const theTask = document.createElement("div");
+    //task done?
+    if (task.done == true) {
+        theTask.classList.add("task");
+        theTask.classList.add("taskDone");
+    }else {theTask.classList.add("task");}
+    //task priority
+    if (task.priority == "low") {
+        theTask.style.borderLeft = "12px solid green";
+    }else if (task.priority == "medium") {
+        theTask.style.borderLeft = "12px solid yellow";
+    }else theTask.style.borderLeft = "12px solid red";
+    theTask.setAttribute("value", toDo.indexOf(task));
+    //conclude option
+    const optConclude = document.createElement("div");
+    optConclude.classList.add("conclude");
+    //conclude input
+    const inputConclude = document.createElement("input");
+    inputConclude.setAttribute("type", "checkbox");
+    inputConclude.setAttribute("name", "conclude");
+    inputConclude.setAttribute("id", "conclude");
+    if (task.done == true) {
+        inputConclude.setAttribute("checked", true);
+    };
+    //task title
+    const taskTitle = document.createElement("div");
+    taskTitle.classList.add("tasks-title");
+    taskTitle.innerHTML = task.title;
+    //task description
+    const taskDesc = document.createElement("div");
+    taskDesc.classList.add("task-description");
+    taskDesc.innerHTML = task.description;
+    //task date
+    const taskDate = document.createElement("div");
+    taskDate.classList.add("task-date");
+    const date = task.dueDate;
+    const dateArray = new Date(date.split("-"));
+    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    taskDate.innerHTML =  month[dateArray.getMonth()] + "/" + dateArray.getDate();
+    //del task
+    const deleteTask = document.createElement("button");
+    deleteTask.classList.add("del-task");
+    deleteTask.setAttribute("value", toDo.indexOf(task));
+    //append
+    optConclude.appendChild(inputConclude);
+    theTask.appendChild(optConclude);
+    theTask.appendChild(taskTitle);
+    theTask.appendChild(taskDesc);
+    theTask.appendChild(taskDate);
+    theTask.appendChild(deleteTask);
+    //append before
+    const beforeThis = document.querySelector(".my-tasks").firstChild;
+    myTasks.insertBefore(theTask, beforeThis);
 }
 
 //watch for checkbox of task complete
@@ -404,7 +461,9 @@ const taskDone = () => {
 //watch for select project
 const projDisplay = () => {
     document.querySelectorAll(".proj-title").forEach((project) => {
-        project.addEventListener("click", ()=> {displayHandler(project.innerHTML)});
+        project.addEventListener("click", ()=> {
+            document.querySelector(".new-task").style.display = "block";
+            displayHandler(project.innerHTML)});
     })
 }
 
@@ -432,8 +491,41 @@ const displayHandler = (projectName) => {
     displayTask(projectName);
 }
 
+//sorted
+const sortedOptions = (sortedFor) => {
+    let title = document.querySelector(".main-title").innerHTML;
+    if (sortedFor == "priority"){
+        toDo.sort((task1, task2) => {
+            if (task1.priority == "high" && task2.priority == "low") return -1;
+            else if (task1.priority == "low" && task2.priority == "high") return 1;
+            else if (task1.priority == "high" && task2.priority == "medium") return -1;
+            else if (task1.priority == "medium" && task2.priority == "high") return 1;
+            else if (task1.priority == "medium" && task2.priority == "low") return -1;
+            else if (task1.priority == "low" && task2.priority == "medium") return 1;
+            else return 0;
+        })
+        if(title == "Today" || title == "Month" || title == "Week") {
+            displayTask("default", title);
+        }else displayTask(title);
+    }else {
+        toDo.sort((task1, task2) => {
+            let date1 = task1.dueDate;
+            const dateArray1 = new Date(date1.split("-"));
+            let date2 = task2.dueDate;
+            const dateArray2 = new Date(date2.split("-"));
+            if (dateArray1.getMonth() == dateArray2.getMonth()) {
+                return dateArray1.getDate() < dateArray2.getDate() ? -1 : 1;
+            }else return dateArray1.getMonth() < dateArray2.getMonth() ? -1 : 1;
+        });
+        if(title == "Today" || title == "Month" || title == "Week") {
+            displayTask("default", title);
+        }else displayTask(title);
+    }
+}
+
 export {
     taskHandler,
     displayTask,
-    projectHandler
+    projectHandler,
+    sortedOptions
 };

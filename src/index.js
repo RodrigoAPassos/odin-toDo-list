@@ -1,4 +1,4 @@
-import {taskHandler, displayTask, projectHandler} from "./Modules/tasks";
+import {taskHandler, displayTask, projectHandler, sortedOptions} from "./Modules/tasks";
 
 const newTask = (()=> {
     document.querySelector(".new-task").addEventListener("click", taskHandler);
@@ -12,6 +12,16 @@ const newProjTask = (()=> {
 
 const newProject = (() => {
     document.querySelector(".add-project").addEventListener("click", projectHandler);
+})();
+
+const displayFilters = (() => {
+    document.querySelector(".day").addEventListener("click", ()=> displayTask("", "Day"));
+    document.querySelector(".week").addEventListener("click", ()=> displayTask("", "Week"));
+    document.querySelector(".month").addEventListener("click", ()=> displayTask("", "Month"));
+})();
+
+const sortTask = (()=> {
+    document.getElementById("sort").addEventListener("change", ()=> sortedOptions(document.getElementById("sort").value));
 })();
 
 displayTask();
