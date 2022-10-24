@@ -187,6 +187,7 @@ const displayTaskForm = () => {
     const taskCancel = document.createElement("div");
     taskCancel.classList.add("cancel-task");
     taskCancel.setAttribute("id", "cancel-task");
+    taskCancel.setAttribute("title", "Cancel");
     //append
     cancelSave.appendChild(saveBtn);
     cancelSave.appendChild(taskCancel);
@@ -206,6 +207,103 @@ const displayTaskForm = () => {
     formContainer.appendChild(theForm);
 };
 
+//display the dorm to edit a task
+const displayEditForm = (task) => {
+    const formContainer = document.querySelector(".task-form");
+    //the form
+    const theForm = document.createElement("form");
+    theForm.setAttribute("action", "");
+    theForm.setAttribute("id", "editForm");
+    //task title
+    const taskTitle = document.createElement("div");
+    taskTitle.classList.add("task-title");
+    //title input
+    const inputTitle = document.createElement("input");
+    inputTitle.setAttribute("id", "task-title");
+    inputTitle.setAttribute("type", "text");
+    inputTitle.setAttribute("value", task.title);
+    inputTitle.setAttribute("placeholder", "Task Title");
+    inputTitle.setAttribute("maxlength", "30");
+    inputTitle.setAttribute("required", "true");
+    //task description
+    const taskDesc = document.createElement("div");
+    taskDesc.classList.add("task-desc");
+    //description input
+    const inputDesc = document.createElement("input");
+    inputDesc.setAttribute("id", "task-description");
+    inputDesc.setAttribute("type", "text");
+    inputDesc.setAttribute("value", task.description);
+    inputDesc.setAttribute("id", "task-description");
+    inputDesc.setAttribute("placeholder", "Task Description");
+    inputDesc.setAttribute("maxlength", "120");
+    //task due date
+    const taskDate = document.createElement("div");
+    taskDate.classList.add("dueDate");
+    //due date input
+    const inputDate = document.createElement("input");
+    inputDate.setAttribute("id", "dueDate");
+    inputDate.setAttribute("type", "date");
+    inputDate.setAttribute("value", task.dueDate);
+    inputDate.setAttribute("name", "dueDate");
+    inputDate.setAttribute("required", "true");
+    //task priority
+    const taskPrior = document.createElement("div");
+    taskPrior.classList.add("priority");
+    //select priority
+    const selectPrior = document.createElement("select");
+    selectPrior.setAttribute("id", "priority");
+    selectPrior.setAttribute("name", "priority");
+    selectPrior.setAttribute("required", "true");
+    //options priority
+    //high
+    const optHigh = document.createElement("option");
+    optHigh.setAttribute("value", "high");
+    optHigh.innerHTML = "High";
+    //medium
+    const optMedium = document.createElement("option");
+    optMedium.setAttribute("value", "medium");
+    optMedium.innerHTML = "Medium";
+    //low
+    const optLow = document.createElement("option");
+    optLow.setAttribute("value", "low");
+    optLow.innerHTML = "Low";
+    //test for original priority
+    if (task.priority == "high") {
+        optHigh.setAttribute("selected", "true");
+    }else if (task.priority == "medium") {
+        optMedium.setAttribute("selected", "true");
+    }else optLow.setAttribute("selected", "true");
+    //task cancel/save
+    const cancelSave = document.createElement("div");
+    cancelSave.classList.add("cancel-save");
+    //submit button
+    const saveBtn = document.createElement("button");
+    saveBtn.setAttribute("type", "submit");
+    saveBtn.setAttribute("id", "save");
+    saveBtn.innerHTML = "Save";
+    //cancel
+    const taskCancel = document.createElement("div");
+    taskCancel.classList.add("cancel-task");
+    taskCancel.setAttribute("id", "cancel-task");
+    taskCancel.setAttribute("title", "Cancel");
+    //append
+    cancelSave.appendChild(saveBtn);
+    cancelSave.appendChild(taskCancel);
+    selectPrior.appendChild(optHigh);
+    selectPrior.appendChild(optMedium);
+    selectPrior.appendChild(optLow);
+    taskPrior.appendChild(selectPrior);
+    taskDate.appendChild(inputDate);
+    taskDesc.appendChild(inputDesc);
+    taskTitle.appendChild(inputTitle);
+    theForm.appendChild(taskTitle);
+    theForm.appendChild(taskDesc);
+    theForm.appendChild(taskDate);
+    theForm.appendChild(taskPrior);
+    theForm.appendChild(cancelSave);
+    formContainer.appendChild(theForm);
+}
+
 //add the new project to the manager area
 const displayMngProj = (projectName) => {
     //projects
@@ -220,11 +318,13 @@ const displayMngProj = (projectName) => {
     //proj title
     const projTitle = document.createElement("div");
     projTitle.classList.add("proj-title");
+    projTitle.setAttribute("title", "Project");
     projTitle.innerHTML = projectName;
-    //projTitle.addEventListener("click", displayProject);
+    projTitle.addEventListener("click",()=> displayHandler(projectName));
     //proj delete
     const delProj = document.createElement("div");
     delProj.classList.add("proj-del");
+    delProj.setAttribute("title", "Delete Project and all it's tasks!");
     delProj.setAttribute("name", projectName);
     //add proj task
     const projTask = document.createElement("div");
@@ -263,6 +363,17 @@ const cancelTask = () => {
         //remove form
         const theForm = document.getElementById("theForm");
         document.querySelector(".task-form").removeChild(theForm);
+        //add event listeners back
+        addListenersTasks();
+    })
+}
+
+const cancelEdit = () => {
+    //watch for click on cancel
+    document.getElementById("cancel-task").addEventListener("click", ()=> {
+        //remove form
+        const editForm = document.getElementById("editForm");
+        document.querySelector(".task-form").removeChild(editForm);
         //add event listeners back
         addListenersTasks();
     })
@@ -370,7 +481,6 @@ const displayTask = (projectName = "default", mode) => {
             })
         break;
         default:
-            console.log(toDo);
             projectName == "Tasks" ? projectName = "default" : projectName = projectName;
             toDo.forEach((task) => {
                 if (task.project == projectName) {
@@ -397,9 +507,14 @@ const showTasks = (task) => {
     //task priority
     if (task.priority == "low") {
         theTask.style.borderLeft = "12px solid green";
+        theTask.setAttribute("title", "Priority: Low");
     }else if (task.priority == "medium") {
         theTask.style.borderLeft = "12px solid yellow";
-    }else theTask.style.borderLeft = "12px solid red";
+        theTask.setAttribute("title", "Priority: Medium");
+    }else {
+        theTask.style.borderLeft = "12px solid red";
+        theTask.setAttribute("title", "Priority: High");
+    };
     theTask.setAttribute("value", toDo.indexOf(task));
     //conclude option
     const optConclude = document.createElement("div");
@@ -408,39 +523,84 @@ const showTasks = (task) => {
     const inputConclude = document.createElement("input");
     inputConclude.setAttribute("type", "checkbox");
     inputConclude.setAttribute("name", "conclude");
+    inputConclude.setAttribute("title", "Incomplete");
     inputConclude.setAttribute("id", "conclude");
     if (task.done == true) {
         inputConclude.setAttribute("checked", true);
+        inputConclude.setAttribute("title", "Complete");
     };
     //task title
     const taskTitle = document.createElement("div");
     taskTitle.classList.add("tasks-title");
+    taskTitle.setAttribute("title", "Task Title");
     taskTitle.innerHTML = task.title;
     //task description
     const taskDesc = document.createElement("div");
     taskDesc.classList.add("task-description");
+    taskDesc.setAttribute("title", "Task Description");
     taskDesc.innerHTML = task.description;
     //task date
     const taskDate = document.createElement("div");
     taskDate.classList.add("task-date");
+    taskDate.setAttribute("title", "Due Date");
     const date = task.dueDate;
     const dateArray = new Date(date.split("-"));
     const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     taskDate.innerHTML =  month[dateArray.getMonth()] + "/" + dateArray.getDate();
+    //edit task
+    const editTask = document.createElement("button");
+    editTask.classList.add("edit-task");
+    editTask.setAttribute("value", toDo.indexOf(task));
+    editTask.setAttribute("title", "Edit");
+    editTask.addEventListener("click",()=> taskEdit(task));
     //del task
     const deleteTask = document.createElement("button");
     deleteTask.classList.add("del-task");
     deleteTask.setAttribute("value", toDo.indexOf(task));
+    deleteTask.setAttribute("title", "Delete");
     //append
     optConclude.appendChild(inputConclude);
     theTask.appendChild(optConclude);
     theTask.appendChild(taskTitle);
     theTask.appendChild(taskDesc);
     theTask.appendChild(taskDate);
+    theTask.appendChild(editTask);
     theTask.appendChild(deleteTask);
     //append before
     const beforeThis = document.querySelector(".my-tasks").firstChild;
     myTasks.insertBefore(theTask, beforeThis);
+}
+
+//edit task
+const taskEdit = (task) => {
+    removeListenersTasks();
+    let taskIndex = toDo.indexOf(task);
+    //display edit form
+    displayEditForm(task);
+    //watch for cancel
+    cancelEdit();
+    //submit edit
+    document.getElementById("editForm").addEventListener("submit", (e)=> {
+        e.preventDefault();
+        //get project name
+        let projectName = document.querySelector(".main-title").innerHTML;
+        projectName == "Tasks" ? projectName = "default" : projectName = projectName;
+        //push to array
+        let taskTitle = document.getElementById("task-title").value;
+        let taskDesc = document.getElementById("task-description").value;
+        let taskDate = document.getElementById("dueDate").value;
+        let taskPriority = document.getElementById("priority").value;
+        let taskDone = false;
+        let editedTask = {project:projectName, title:taskTitle, description:taskDesc, dueDate:taskDate, priority:taskPriority, done:taskDone};
+        toDo.splice(taskIndex, 1, editedTask);
+        //remove form
+        const editForm = document.getElementById("editForm");
+        document.querySelector(".task-form").removeChild(editForm);
+        //add event listeners back
+        addListenersTasks();
+        //display all tasks of selected project
+        displayTask(projectName);
+    })
 }
 
 //watch for checkbox of task complete
@@ -460,15 +620,13 @@ const taskDone = () => {
 
 //watch for select project
 const projDisplay = () => {
-    document.querySelectorAll(".proj-title").forEach((project) => {
-        project.addEventListener("click", ()=> {
-            document.querySelector(".new-task").style.display = "block";
-            displayHandler(project.innerHTML)});
-    })
+    document.getElementById("proj-default").addEventListener("click", ()=> displayHandler("Tasks"));
 }
 
 //Handles display of delete, add task and project title
 const displayHandler = (projectName) => {
+    //Once project display, show new-task button
+    document.querySelector(".new-task").style.display = "block";
     //Display Project Name
     document.querySelector(".main-title").innerHTML = projectName;
     //Display add task option in manager area
