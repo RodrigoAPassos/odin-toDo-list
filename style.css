@@ -155,11 +155,17 @@ select#sort {
     background-color: #dbeafe;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr 6fr 14fr 4fr 1fr;
+    grid-template-columns: 1fr 6fr 14fr 4fr 1fr 1fr;
     gap: 5px;
     box-shadow: 0px 0px 5px 0px #000000;
     border-radius: 12px;
     margin-bottom: 10px;
+    transition: 0.5s;
+}
+
+.task:hover {
+    transform: scale(1.005);
+    box-shadow: 0px 0px 7px 0px #000000;
 }
 
 .taskDone {
@@ -263,6 +269,17 @@ button#save, button#save-project {
     align-self: center;
 }
 
+.edit-task {
+    background-image: url(../src/Resources/edit_note_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    justify-self: end;
+    align-self: center;
+}
+
 .del-task {
     background-image: url(../src/Resources/delete_forever_black_24dp.svg);
     background-repeat: no-repeat;
@@ -285,16 +302,12 @@ button#save, button#save-project {
     align-self: center;
 }
 
-.proj-del:hover {
-    cursor: pointer;
-}
-
-button.del-task {
+button.del-task, button.edit-task {
     border-radius: 50%;
     border: 0;
 }
 
-button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #save-project:hover {
+button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #save-project:hover, .proj-del:hover, .edit-task:hover {
     cursor: pointer;
 }
 
