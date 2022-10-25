@@ -1,4 +1,4 @@
-import {taskHandler, displayTask, projectHandler, sortedOptions} from "./Modules/tasks";
+import {taskHandler, displayTask, projectHandler, sortedOptions, displayHandler} from "./Modules/tasks";
 
 const newTask = (()=> {
     document.querySelector(".new-task").addEventListener("click", taskHandler);
@@ -22,6 +22,11 @@ const displayFilters = (() => {
 
 const sortTask = (()=> {
     document.getElementById("sort").addEventListener("change", ()=> sortedOptions(document.getElementById("sort").value));
+})();
+
+//watch for Tasks default project selected
+const projDisplay = (() => {
+    document.getElementById("proj-default").addEventListener("click", ()=> displayHandler("Tasks"));
 })();
 
 displayTask();
