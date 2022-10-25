@@ -1,7 +1,4 @@
-@font-face {
-    font-family: "dancing" ;
-    src: url(../src/Resources/Dancing_Script/DancingScript-VariableFont_wght.ttf);
-}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 body {
     margin: 0;
@@ -27,7 +24,7 @@ body {
     color: #eff6ff;
     display: flex;
     justify-content: center;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
 }
 
 .manager {
@@ -37,7 +34,7 @@ body {
 }
 
 .proj-title {
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     font-size: 1.5rem;
     cursor: pointer;
     width: fit-content;
@@ -47,7 +44,7 @@ body {
     padding-left: 12px;
     margin: 5px;
     font-size: 1.2rem;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     width: fit-content;
 }
 
@@ -61,7 +58,7 @@ body {
     padding-left: 20px;
     margin: 5px;
     font-size: 1rem;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     width: fit-content;
 }
 
@@ -90,7 +87,7 @@ body {
 
 .day, .week, .month {
     flex: auto;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     font-size: 2.5rem;
     text-align: center;
     padding: 10px;
@@ -116,7 +113,7 @@ body {
 }
 
 .main-title {
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     font-size: 2rem;
     margin: 15px;
 }
@@ -148,7 +145,7 @@ select#sort {
 .my-tasks {
     margin: 5px;
     font-size: 1.5rem;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
 }
 
 .task {
@@ -197,7 +194,7 @@ select#sort {
 
 #task-title::placeholder, #project-title::placeholder {
     color: black;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
 }
 
@@ -219,7 +216,7 @@ select#sort {
 
 #task-description::placeholder {
     color: black;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
 }
 
@@ -330,7 +327,7 @@ button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #sav
 .new-task {
     margin: 5px;
     font-size: 1.2rem;
-    font-family: "dancing";
+    font-family: 'Dancing Script', cursive;
     width: fit-content;
 }
 
