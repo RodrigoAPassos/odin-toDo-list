@@ -311,8 +311,18 @@ button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #sav
     cursor: pointer;
 }
 
-.task-form form:has(.cancel-task:hover), .task:has(.del-task:hover), #projectForm:has(.proj-cancel:hover), .proj:has(.proj-del:hover) {
+.proj {
     transition: 1s;
+}
+
+.proj:has(.proj-del:hover) {
+    background-color: #fee2e2;
+    border-radius: 12px;
+    padding: 0px 5px;
+    box-shadow: 0px 0px 5px 0px #ff0000;
+}
+
+.task-form form:has(.cancel-task:hover), .task:has(.del-task:hover), #projectForm:has(.proj-cancel:hover) {
     background-color: #fee2e2;
     box-shadow: 0px 0px 5px 0px #ff0000;
 }

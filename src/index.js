@@ -26,7 +26,7 @@ const sortTask = (()=> {
 
 //watch for Tasks default project selected
 const projDisplay = (() => {
-    document.getElementById("proj-default").addEventListener("click", ()=> displayHandler("Tasks"));
+    document.getElementById("proj-default").addEventListener("click", ()=> displayTask("Tasks"));
 })();
 
 displayTask();
