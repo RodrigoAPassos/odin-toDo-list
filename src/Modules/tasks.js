@@ -1,4 +1,4 @@
-const toDo = JSON.parse(localStorage.getItem("toDo")) || [{project:"default", title:"Any Task", description:"Task synopsis", dueDate:"2022-10-18", priority:"low", done:true}];
+const toDo = JSON.parse(localStorage.getItem("toDo")) || [{project:"Project", title:"Any Task", description:"Task synopsis", dueDate:"2022-10-18", priority:"low", done:true}];
 let taskProjects = JSON.parse(localStorage.getItem("taskProjects")) || [...new Set(toDo.map(task => task.project))];
 
 //task factory
@@ -18,6 +18,9 @@ const removeListenersTasks = () => {
     document.querySelectorAll(".add-proj-task").forEach((taskProj) => {
         taskProj.removeEventListener("click", taskHandler);
     })
+    document.querySelectorAll(".edit-task").forEach((editBtn) => {
+        editBtn.setAttribute("disabled", "true");
+    })
 }
 
 const saveTask = () => {
@@ -25,8 +28,7 @@ const saveTask = () => {
         //prevent refresh
         e.preventDefault();
         //get project name
-        let projectName = document.querySelector(".main-title").innerHTML;
-        projectName == "Tasks" ? projectName = "default" : projectName = projectName;
+        let projectName = document.querySelector(".message").innerHTML;
         //push to array
         let taskTitle = document.getElementById("task-title").value;
         let taskDesc = document.getElementById("task-description").value;
@@ -101,7 +103,9 @@ const saveProject = () => {
     document.getElementById("projectForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const projectName = document.getElementById("project-title").value;
-        taskProjects.push(projectName);
+        if (taskProjects[0] == "No Projects created! Create a Project in the left panel to begin!") {
+            taskProjects.splice(0, 1, projectName);
+        }else {taskProjects.push(projectName);};
         //save projects
         localStorage.setItem("taskProjects", JSON.stringify(taskProjects));
         //remove project form
@@ -309,14 +313,9 @@ const displayEditForm = (task) => {
 }
 
 //add the new project to the manager area
-const displayHandler = (projectN) => {
-    projectN == "default" ? projectN = "Tasks" : projectN = projectN;
+const displayHandler = (projectN, mode = "default") => {
     //Display Project Name
-    document.querySelector(".main-title").innerHTML = projectN;
-    //handle Tasks default project display
-    if (projectN == "Tasks") {
-        document.getElementById("add-task-default").style.display = "block";
-    }else {document.getElementById("add-task-default").style.display = "none";};
+    document.querySelector(".message").innerHTML = projectN;
     //clear projects
     const myProj = document.querySelector(".projects");
     const clearProjects = document.querySelectorAll(".newProject");
@@ -325,7 +324,7 @@ const displayHandler = (projectN) => {
     })
     //display each on manager area
     for (let projectName of taskProjects) {
-        if (projectName == "default") {
+        if (projectName == "No Projects created! Create a Project in the left panel to begin!") {
             continue;
         }else {
             //projects
@@ -334,6 +333,7 @@ const displayHandler = (projectN) => {
             const newProject = document.createElement("div");
             newProject.classList.add("newProject");
             newProject.setAttribute("name", projectName);
+            projectN == projectName ? newProject.classList.add("select") : newProject.classList.remove("select");
             //proj container
             const proj = document.createElement("div");
             proj.classList.add("proj");
@@ -343,14 +343,26 @@ const displayHandler = (projectN) => {
             projTitle.setAttribute("title", "Project");   
             projTitle.innerHTML = projectName;
             projTitle.addEventListener("click",()=> displayTask(projectName));
+            //proj open
+            const projOpen = document.createElement("div");
+            projOpen.classList.add("proj-open");
+            projOpen.setAttribute("name", projectName);
+            if (projectN == projectName) {
+                projOpen.classList.remove("hidden");
+            }else {projOpen.classList.add("hidden")};
+            if (mode == "open" && projectN == projectName) {
+                console.log(projOpen.className);
+                projOpen.className == "proj-open opened" ? projOpen.classList.remove("opened") : projOpen.classList.add("opened");
+            }else {projOpen.classList.remove("opened")};
+            projOpen.addEventListener("click", ()=> displayHandler(projectName, "open"));
             //proj delete
             const delProj = document.createElement("div");
             delProj.classList.add("proj-del");
             delProj.setAttribute("title", "Delete Project and all it's tasks!");
             delProj.setAttribute("name", projectName);
             delProj.addEventListener("click", ()=> delProject(projectName));
-            if (projectN == projectName) {
-                delProj.classList.remove("hidden");
+            if (mode == "open" && projectN == projectName) {
+                delProj.className == "proj-del hidden" ? delProj.classList.remove("hidden") : delProj.classList.add("hidden");
             }else {delProj.classList.add("hidden")};
             //add proj task
             const projTask = document.createElement("div");
@@ -358,17 +370,18 @@ const displayHandler = (projectN) => {
             projTask.setAttribute("name", projectName);
             projTask.innerHTML = "+task";
             projTask.addEventListener("click", taskHandler);
-            if (projectN == projectName) {
-                projTask.classList.remove("hidden");
+            if (mode == "open" && projectN == projectName) {
+                projTask.className == "add-proj-task hidden" ? projTask.classList.remove("hidden") : projTask.classList.add("hidden");
             }else {projTask.classList.add("hidden")};
             //append
             proj.appendChild(projTitle);
-            proj.appendChild(delProj);
+            proj.appendChild(projOpen);
             newProject.appendChild(proj);
             newProject.appendChild(projTask);
+            newProject.appendChild(delProj);
             //append before
             const beforeThis = document.querySelector(".projects").firstChild;
-            projects.insertBefore(newProject, beforeThis);
+            projects.insertBefore(newProject, beforeThis);    
         }
     }
 }
@@ -418,14 +431,16 @@ const delProject = (projectName) => {
             };
         })
     }
+    //message if no projects
+    const message = "No Projects created! Create a Project in the left panel to begin!";
     //save toDos on local storage
     localStorage.setItem("toDo", JSON.stringify(toDo));
-    //update taskProjects
+    //delete project/update taskProjects
     taskProjects.splice(taskProjects.indexOf(projectName), 1);
+    taskProjects.length == 0 ? taskProjects.push(message) : taskProjects = taskProjects;
     //save projects
     localStorage.setItem("taskProjects", JSON.stringify(taskProjects));
-    //displayMngProj("Tasks");
-    displayTask("Tasks");
+    displayTask("");
 }
 
 //delete the selected task of the array toDo
@@ -435,7 +450,7 @@ const delTask = (value) => {
             toDo.splice(Number(task.getAttribute("value")), 1);
             //save on local storage
             localStorage.setItem("toDo", JSON.stringify(toDo));
-            displayTask();
+            displayTask("");
         }
     })
 }
@@ -451,11 +466,15 @@ const clearTask = () => {
 }
 
 //display all tasks of selected project
-const displayTask = (projectName = "default", mode) => {
+const displayTask = (projectName, mode) => {
     clearTask();
     switch (mode){
         case "Day":
             document.querySelector(".new-task").style.display = "none";
+            document.querySelector(".day").classList.add("selected");
+            document.querySelector(".week").classList.remove("selected");
+            document.querySelector(".month").classList.remove("selected");
+            document.querySelector(".proj-header").classList.remove("selected");
             displayHandler("Today");
             toDo.forEach((task) => {
                 const today = new Date();
@@ -468,6 +487,10 @@ const displayTask = (projectName = "default", mode) => {
         break;
         case "Week":
             document.querySelector(".new-task").style.display = "none";
+            document.querySelector(".week").classList.add("selected");
+            document.querySelector(".day").classList.remove("selected");
+            document.querySelector(".month").classList.remove("selected");
+            document.querySelector(".proj-header").classList.remove("selected");
             displayHandler("Week");
             const today = new Date();
             const sunday = new Date(today.setDate(today.getDate() - today.getDay()));
@@ -487,6 +510,10 @@ const displayTask = (projectName = "default", mode) => {
         break;
         case "Month":
             document.querySelector(".new-task").style.display = "none";
+            document.querySelector(".month").classList.add("selected");
+            document.querySelector(".day").classList.remove("selected");
+            document.querySelector(".week").classList.remove("selected");
+            document.querySelector(".proj-header").classList.remove("selected");
             displayHandler("Month");
             toDo.forEach((task) => {
                 const today = new Date();
@@ -498,17 +525,50 @@ const displayTask = (projectName = "default", mode) => {
             })
         break;
         default:
-            projectName == "Tasks" ? projectName = "default" : projectName = projectName;
-            toDo.forEach((task) => {
-                if (task.project == projectName) {
-                    showTasks(task);
+            document.querySelector(".proj-header").classList.add("selected");
+            document.querySelector(".day").classList.remove("selected");
+            document.querySelector(".month").classList.remove("selected");
+            document.querySelector(".week").classList.remove("selected");
+            //if no project name
+            if (projectName == null || projectName == "") {
+                projectName = taskProjects[0];
+                //if no project
+                if (projectName == "No Projects created! Create a Project in the left panel to begin!") {
+                    document.querySelector(".new-task").style.display = "none";
+                    displayHandler(projectName);
+                }else {
+                    //if project exist but no tasks
+                    if (toDo.length == 0) {
+                        displayHandler(projectName);
+                    }else {
+                        //project and task exist
+                        toDo.forEach((task) => {
+                            if (task.project == projectName) {
+                                showTasks(task);
+                            }
+                            document.querySelector(".new-task").style.display = "block";
+                            displayHandler(projectName);
+                        })
+                    }
                 }
-                document.querySelector(".new-task").style.display = "block";
-                displayHandler(projectName);
-            })
+            //if project name
+            }else {
+                //if project name but no tasks
+                if (toDo.length == 0) {
+                    displayHandler(projectName);
+                }else {
+                    //project name and tasks
+                    toDo.forEach((task) => {
+                        if (task.project == projectName) {
+                            showTasks(task);
+                        }
+                        document.querySelector(".new-task").style.display = "block";
+                        displayHandler(projectName);
+                    })
+                }
+            }
         break;
     }
-    //displayMngProj();
     taskDone();
 }
 
@@ -605,8 +665,7 @@ const taskEdit = (task) => {
     document.getElementById("editForm").addEventListener("submit", (e)=> {
         e.preventDefault();
         //get project name
-        let projectName = document.querySelector(".main-title").innerHTML;
-        projectName == "Tasks" ? projectName = "default" : projectName = projectName;
+        let projectName = document.querySelector(".message").innerHTML;
         //push to array
         let taskTitle = document.getElementById("task-title").value;
         let taskDesc = document.getElementById("task-description").value;
@@ -645,7 +704,7 @@ const taskDone = () => {
 
 //sorted
 const sortedOptions = (sortedFor) => {
-    let title = document.querySelector(".main-title").innerHTML;
+    let title = document.querySelector(".message").innerHTML;
     if (sortedFor == "priority"){
         toDo.sort((task1, task2) => {
             if (task1.priority == "high" && task2.priority == "low") return 1;
@@ -657,8 +716,8 @@ const sortedOptions = (sortedFor) => {
             else return 0;
         })
         if(title == "Today" || title == "Month" || title == "Week") {
-            displayTask("default", title);
-        }else displayTask(title);
+            displayTask("", title);
+        }else displayTask("");
     }else {
         toDo.sort((task1, task2) => {
             let date1 = task1.dueDate;
@@ -670,8 +729,8 @@ const sortedOptions = (sortedFor) => {
             }else return dateArray1.getMonth() < dateArray2.getMonth() ? -1 : 1;
         });
         if(title == "Today" || title == "Month" || title == "Week") {
-            displayTask("default", title);
-        }else displayTask(title);
+            displayTask("", title);
+        }else displayTask("");
     }
 }
 

@@ -24,9 +24,5 @@ const sortTask = (()=> {
     document.getElementById("sort").addEventListener("change", ()=> sortedOptions(document.getElementById("sort").value));
 })();
 
-//watch for Tasks default project selected
-const projDisplay = (() => {
-    document.getElementById("proj-default").addEventListener("click", ()=> displayTask("Tasks"));
-})();
 
-displayTask();
+displayTask("");

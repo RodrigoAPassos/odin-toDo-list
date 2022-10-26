@@ -5,46 +5,90 @@ body {
     font-size: 16px;
     width: 100vw;
     height: 100vh;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .container {
-    display: flex;
+    display: grid;
+    grid-template-rows: 3rem 1fr;
+    grid-template-columns: max-content 1fr;
     height: 100%;
 }
 
 .control {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    grid-row: span 2;
+    grid-column: 1 2;
 }
 
 .header {
+    grid-row: span 1;
+    grid-column: span 2;
     background-color: #0ea5e9;
     font-size: 2.5rem;
     padding: 10px;
     color: #eff6ff;
-    display: flex;
-    justify-content: center;
+    align-self: center;
+    text-align: center;
     font-family: 'Dancing Script', cursive;
+    cursor: default;
 }
 
 .manager {
     flex: 1;
     background-color: #dbeafe;
     overflow-y: auto;
+    border-right: 2px solid #bfdbfe;
+}
+
+.newProject {
+    padding: 10px;
+    transition: all 0.5s;
+    height: fit-content;
+}
+
+.newProject.select {
+    box-shadow: inset -2px 0px 5px 0px #3b82f6;
+    font-weight: bold;
+    height: min-content;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto 1fr;
 }
 
 .proj-title {
-    font-family: 'Dancing Script', cursive;
     font-size: 1.5rem;
     cursor: pointer;
     width: fit-content;
+}
+
+.proj-open {
+    background-image: url(../src/Resources/open_in_full_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    justify-self: end;
+    align-self: center;
+}
+
+.proj-open.opened {
+    background-image: url(../src/Resources/close_fullscreen_black_24dp.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 24px;
+    width: 24px;
+    justify-self: end;
+    align-self: center;
 }
 
 .add-project {
     padding-left: 12px;
     margin: 5px;
     font-size: 1.2rem;
-    font-family: 'Dancing Script', cursive;
     width: fit-content;
 }
 
@@ -58,8 +102,9 @@ body {
     padding-left: 20px;
     margin: 5px;
     font-size: 1rem;
-    font-family: 'Dancing Script', cursive;
     width: fit-content;
+    grid-column: 1 2;
+    grid-row: span 2;
 }
 
 .add-proj-task:hover {
@@ -68,35 +113,44 @@ body {
     cursor: pointer;
 }
 
-.projects {
-    padding: 10px;
-    box-shadow: 0px 0px 5px 0px #3b82f6;
-}
-
 .footer {
     background-color: #bfdbfe;
     padding: 10px;
 }
 
 .main {
+    grid-row: span 2;
+    grid-column:  2;
     flex: 1;
     display: flex;
     flex-direction: column;
     background-color: #e0f2fe;
 }
 
-.day, .week, .month {
+.proj-header {
+    cursor: default;
+}
+
+.day, .week, .month, .proj-header {
     flex: auto;
     font-family: 'Dancing Script', cursive;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     text-align: center;
-    padding: 10px;
+    padding: 5px;
     background-color: #bfdbfe;
-    box-shadow: 0px 0px 5px 0px #3b82f6;
+    background: linear-gradient(to bottom, #0ea5e9 50%, #bfdbfe 50%);
+    background-position: bottom left;
+    background-size: 100% 200%;
+    transition: all .5s ease-out;
+}
+
+.day.selected, .week.selected, .month.selected, .proj-header.selected {
+    background-position: top left;
+    color: white;
 }
 
 .day:hover, .week:hover, .month:hover {
-    box-shadow: 0px 0px 10px 0px #3b82f6;
+    box-shadow: inset 0px 0px 10px 0px #3b82f6;
     cursor: pointer;
 }
 
@@ -112,10 +166,10 @@ body {
     align-items: center;
 }
 
-.main-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
+.message {
+    font-size: 1.2rem;
     margin: 15px;
+    text-align: center;
 }
 
 .sort {
@@ -145,7 +199,6 @@ select#sort {
 .my-tasks {
     margin: 5px;
     font-size: 1.5rem;
-    font-family: 'Dancing Script', cursive;
 }
 
 .task {
@@ -194,7 +247,6 @@ select#sort {
 
 #task-title::placeholder, #project-title::placeholder {
     color: black;
-    font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
 }
 
@@ -216,7 +268,6 @@ select#sort {
 
 #task-description::placeholder {
     color: black;
-    font-family: 'Dancing Script', cursive;
     font-size: 1.2rem;
 }
 
@@ -241,6 +292,8 @@ select {
 select:focus {
     outline: none;
 }
+
+
 
 .cancel-save, #projectForm, .proj {
     display: flex;
@@ -310,6 +363,8 @@ button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #sav
 
 .proj {
     transition: 1s;
+    grid-column: span 2;
+    grid-row: span 1;
 }
 
 .proj:has(.proj-del:hover) {
@@ -327,7 +382,6 @@ button#save:hover, .cancel-task:hover, .del-task:hover, .proj-cancel:hover, #sav
 .new-task {
     margin: 5px;
     font-size: 1.2rem;
-    font-family: 'Dancing Script', cursive;
     width: fit-content;
 }
 
