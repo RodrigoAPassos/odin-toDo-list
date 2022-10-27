@@ -334,6 +334,9 @@ const displayHandler = (projectN, mode = "default") => {
             newProject.classList.add("newProject");
             newProject.setAttribute("name", projectName);
             projectN == projectName ? newProject.classList.add("select") : newProject.classList.remove("select");
+            if (mode == "open" && projectN == projectName) {
+                newProject.classList.add("opened");
+            }else {newProject.classList.remove("opened")};
             //proj container
             const proj = document.createElement("div");
             proj.classList.add("proj");
@@ -347,14 +350,18 @@ const displayHandler = (projectN, mode = "default") => {
             const projOpen = document.createElement("div");
             projOpen.classList.add("proj-open");
             projOpen.setAttribute("name", projectName);
+            projOpen.setAttribute("title", "Expand");
             if (projectN == projectName) {
                 projOpen.classList.remove("hidden");
             }else {projOpen.classList.add("hidden")};
             if (mode == "open" && projectN == projectName) {
-                console.log(projOpen.className);
-                projOpen.className == "proj-open opened" ? projOpen.classList.remove("opened") : projOpen.classList.add("opened");
-            }else {projOpen.classList.remove("opened")};
-            projOpen.addEventListener("click", ()=> displayHandler(projectName, "open"));
+                projOpen.classList.add("opened");
+                projOpen.setAttribute("title", "Collapse");
+            }else if (mode == "close" && projectN == projectName) {
+                projOpen.classList.remove("opened");
+            };
+            projOpen.className == "proj-open opened" ? projOpen.addEventListener("click", ()=> displayHandler(projectName, "close")) 
+                : projOpen.addEventListener("click", ()=> displayHandler(projectName, "open"));
             //proj delete
             const delProj = document.createElement("div");
             delProj.classList.add("proj-del");
@@ -362,7 +369,7 @@ const displayHandler = (projectN, mode = "default") => {
             delProj.setAttribute("name", projectName);
             delProj.addEventListener("click", ()=> delProject(projectName));
             if (mode == "open" && projectN == projectName) {
-                delProj.className == "proj-del hidden" ? delProj.classList.remove("hidden") : delProj.classList.add("hidden");
+                delProj.classList.remove("hidden");
             }else {delProj.classList.add("hidden")};
             //add proj task
             const projTask = document.createElement("div");
@@ -371,7 +378,7 @@ const displayHandler = (projectN, mode = "default") => {
             projTask.innerHTML = "+task";
             projTask.addEventListener("click", taskHandler);
             if (mode == "open" && projectN == projectName) {
-                projTask.className == "add-proj-task hidden" ? projTask.classList.remove("hidden") : projTask.classList.add("hidden");
+                projTask.classList.remove("hidden");
             }else {projTask.classList.add("hidden")};
             //append
             proj.appendChild(projTitle);
