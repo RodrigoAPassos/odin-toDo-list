@@ -44,17 +44,21 @@ body {
 
 .newProject {
     padding: 10px;
-    transition: all 0.5s;
     height: fit-content;
+    grid-template-rows: 1fr;
+    grid-template-columns: auto 1fr;
 }
 
 .newProject.select {
     box-shadow: inset -2px 0px 5px 0px #3b82f6;
     font-weight: bold;
-    height: min-content;
     display: grid;
+    height: fit-content;
+}
+
+.newProject.select.opened {
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: auto 1fr;
+    height: fit-content;
 }
 
 .proj-title {
@@ -64,7 +68,7 @@ body {
 }
 
 .proj-open {
-    background-image: url(../src/Resources/open_in_full_black_24dp.svg);
+    background-image: url(../src/Resources/expand_more_black_24dp.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -75,7 +79,7 @@ body {
 }
 
 .proj-open.opened {
-    background-image: url(../src/Resources/close_fullscreen_black_24dp.svg);
+    background-image: url(../src/Resources/expand_less_black_24dp.svg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
