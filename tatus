@@ -1,0 +1,165 @@
+[33mcommit 39de22db802d5ed87361500afda7af5278ee6902[m[33m ([m[1;36mHEAD -> [m[1;32mv0.2[m[33m, [m[1;31morigin/v0.2[m[33m)[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Fri Oct 28 15:51:40 2022 -0300
+
+    Add detailed view of tasks, Add month options
+    
+    Add an option to expand/collapse view of tasks, Add selection of month
+    on filter
+
+[33mcommit 904ebfac55c45d512d9fb3bd22ecae943f0b9f97[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Thu Oct 27 13:41:59 2022 -0300
+
+    Add better manager area
+    
+    Add Project selection visuals, an expand/collapse option when selected to
+    display/hide the +task and delete project buttons
+    
+    Next add expand/collapse option to the tasks
+
+[33mcommit db034af3d0ea1b42a342ed700719eb9ae9c3e6a5[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Wed Oct 26 20:24:18 2022 -0300
+
+    Changed UI, Add visual indication for filter
+
+[33mcommit c77acfd9ef765b2c6ed7f9e7da8dcff489fe3b8c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 25 21:24:10 2022 -0300
+
+    Update README with more info
+
+[33mcommit 595b99ad3f97e8d12ca2f8ab6e12b29193dceab4[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 25 19:36:00 2022 -0300
+
+    Changed import format of font
+
+[33mcommit b0f628a473008c4f35440d51f8d5b49f1034b6f8[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 25 19:13:42 2022 -0300
+
+    Fix all known issues
+
+[33mcommit 6587810b5dc913661c7910f7d2cf424bd9fc70c8[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 25 16:04:33 2022 -0300
+
+    Cleaned code, fix projects save, manager's fix wip
+
+[33mcommit 6b159952491df08e4cabb7799d80b86b8914a785[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Mon Oct 24 18:47:16 2022 -0300
+
+    Add localStorage option
+    
+    Next Fix some issues with manager area
+
+[33mcommit 84a75f9c792630a562a6eeadf229c0ac3c9e56df[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Mon Oct 24 16:24:54 2022 -0300
+
+    Add edit option for tasks
+    
+    Add edit for tasks and fix issues with display project
+    
+    Next add localStorage
+
+[33mcommit 6946c3600e410c73d0f519fdfae9f16abe976ff8[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Fri Oct 21 19:45:43 2022 -0300
+
+    Add filter (day, week, month) and Fix project del
+    
+    Add filter for tasks of the day, week or month. Add sort for priority
+    or date and fix the delete project not erasing all the tasks of that
+    project
+
+[33mcommit 829a7f25abff70358951161aac8c084fe53d511b[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Thu Oct 20 18:16:08 2022 -0300
+
+    Add display and delete option for projects
+    
+    Next add filters for tasks (other than per project) and fix project
+    delete not working properly
+
+[33mcommit 0153999ac00889d00daf0a9c5c87ad1cd395d76d[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Wed Oct 19 18:52:07 2022 -0300
+
+    Add logic for new project
+    
+    Next add display for created project and fix the project attribute
+    for each task
+
+[33mcommit 8568b4341a84e6ca6ab563abf776702c051f3b73[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 18 18:13:17 2022 -0300
+
+    Add option for task complete, fix HTML validation
+    
+    Also Add logic for new task in the manager area.
+    
+    Next add option for new projects
+
+[33mcommit 2bba365fa0994c4bd794b030a1d70585e2fb27e4[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Mon Oct 17 18:15:24 2022 -0300
+
+    Add logic for display tasks
+    
+    Also add logic for border color depending on priority and the button
+    for delete tasks.
+    
+    Next fix html form validation and add an option for task complete
+
+[33mcommit 2cdef91d8888c28aa2086f44dd62155eb41a131d[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Fri Oct 14 18:50:55 2022 -0300
+
+    Finish logic for task input
+    
+    Next add logic for basic task display
+
+[33mcommit cf75d77b98290b5de811cd2494ad750c32281eb2[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Thu Oct 13 18:32:33 2022 -0300
+
+    Finish add task style
+    
+    Next add logic to it
+
+[33mcommit 1ec22f31eb648fb173f10878514d42400d9077c5[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Thu Oct 13 15:54:44 2022 -0300
+
+    Add style for task entry
+
+[33mcommit 584ed6e3ab4bba6f04cfd19501130af9b4eb0729[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Tue Oct 11 13:44:47 2022 -0300
+
+    Started to develop the form for task entry
+
+[33mcommit bd86163c29075a649fba616268304fc0e662d5a3[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Fri Oct 7 15:06:02 2022 -0300
+
+    Add task factory, started logic to input data
+
+[33mcommit 5e745e21a43bdd1850fecf55962ac6b88b0ba67d[m
+Author: Rodrigo Passos <rodrigoarapassos@gmail.com>
+Date:   Thu Oct 6 16:00:44 2022 -0300
+
+    Add basic style for the page
+    
+    Add basic file structure and basic style for the page.
+    Next start the script for task creation
+
+[33mcommit 4a4c4e3674c70ea474b714bc176bd46945c4b878[m
+Author: RodrigoAPassos <106838096+RodrigoAPassos@users.noreply.github.com>
+Date:   Thu Oct 6 12:44:32 2022 -0300
+
+    Initial commit
