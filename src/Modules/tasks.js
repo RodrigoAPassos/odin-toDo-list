@@ -652,7 +652,9 @@ const showTasks = (task, mode = "default") => {
     const date = task.dueDate;
     const dateArray = new Date(date.split("-"));
     const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    taskDate.innerHTML =  month[dateArray.getMonth()] + "/" + dateArray.getDate();
+    const today = new Date();
+    dateArray.getFullYear() == today.getFullYear() ? taskDate.innerHTML =  month[dateArray.getMonth()] + "/" + dateArray.getDate() :
+    taskDate.innerHTML =  month[dateArray.getMonth()] + "/" + dateArray.getDate() + "/" + dateArray.getFullYear().toString().slice(-2);
     //open task
     const taskOpen = document.createElement("div");
     taskOpen.classList.add("open-task");
